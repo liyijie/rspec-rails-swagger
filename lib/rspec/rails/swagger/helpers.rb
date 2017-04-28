@@ -216,12 +216,14 @@ module RSpec
                 headers = builder.headers
                 env = builder.env
                 body = builder.body
+                form_data = builder.form_data
 
                 # Run the request
+                params = body || form_data
                 if ::Rails::VERSION::MAJOR >= 5
-                  self.send(method, path, {params: body, headers: headers, env: env})
+                  self.send(method, path, {params: params, headers: headers, env: env})
                 else
-                  self.send(method, path, body, headers.merge(env))
+                  self.send(method, path, params, headers.merge(env))
                 end
 
                 if example.metadata[:capture_examples]

@@ -104,6 +104,10 @@ module RSpec
             instance.send(key.split('&').last).to_json
           end
         end
+
+        def form_data
+          parameter_values('formData')
+        end
       end
     end
   end

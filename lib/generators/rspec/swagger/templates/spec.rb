@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe '<%= controller_path %>', type: :request do
+RSpec.describe '<%= controller_path %>', type: :request, capture_examples: true, tags: [""] do
 <% @routes.each do | template, path_item | %>
   path '<%= template %>' do
 <% unless path_item[:params].empty? -%>
@@ -16,6 +16,8 @@ RSpec.describe '<%= controller_path %>', type: :request do
 <% end -%>
 <% path_item[:actions].each do | action, details | -%>
     <%= action %>(summary: '<%= details[:summary] %>') do
+      produces 'application/json'
+      consumes 'application/json'
       response(200, description: 'successful') do
         # You can add before/let blocks here to trigger the response code
       end
